@@ -44,6 +44,37 @@ h3 {
     color: #1e40af;
 }
 
+/* Introduction styles */
+.introduction {
+    margin-bottom: 24px;
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #1e40af;
+}
+
+.introduction p {
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.introduction a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.introduction a:hover {
+    text-decoration: underline;
+}
+
+.introduction .footer-note {
+    font-style: italic;
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
 /* Utility classes */
 .hidden {
     display: none;

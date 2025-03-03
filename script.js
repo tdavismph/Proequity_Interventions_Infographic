@@ -257,9 +257,17 @@ async function initializeData() {
             
             processData(jsonData);
         } else {
-            // If Excel file fails to load, use sample data
-            console.log('Excel file not found, using sample data instead');
-            processData(SAMPLE_DATA);
+            // If Excel file fails to load, try to load JSON file
+            const jsonResponse = await fetch('sample_data.json');
+            
+            if (jsonResponse.ok) {
+                const jsonData = await jsonResponse.json();
+                processData(jsonData);
+            } else {
+                // If JSON file also fails, use sample data
+                console.log('Using embedded sample data');
+                processData(SAMPLE_DATA);
+            }
         }
     } catch (error) {
         console.error('Error loading data:', error);
