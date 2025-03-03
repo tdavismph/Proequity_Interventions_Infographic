@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro-Equity Health Intervention Rankings</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include XLSX library for Excel file parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pro-Equity Health Intervention Rankings by Country</h1>
+        
+        <!-- Loading indicator -->
+        <div id="loading">Loading data...</div>
+        
+        <!-- Error message -->
+        <div id="error" class="error"></div>
+        
+        <!-- Main content container, hidden until data loads -->
+        <div id="content" class="hidden">
+            <!-- Intervention Selection -->
+            <div class="selection-container">
+                <label for="intervention-select" class="label">Select an Intervention:</label>
+                <select id="intervention-select" class="select">
+                    <!-- Options will be added dynamically -->
+                </select>
+            </div>
+            
+            <!-- Ranking Visualization -->
+            <div class="visualization-container">
+                <h2>Rankings by Country (Ordered by Priority)</h2>
+                <div id="rankings-container">
+                    <!-- Rankings will be added dynamically -->
+                </div>
+                <div class="legend">
+                    <span class="legend-label">Best</span>
+                    <div class="legend-colors">
+                        <div class="legend-color" style="background-color: #1e3a8a;"></div>
+                        <div class="legend-color" style="background-color: #3b82f6;"></div>
+                        <div class="legend-color" style="background-color: #93c5fd;"></div>
+                        <div class="legend-color" style="background-color: #bfdbfe;"></div>
+                        <div class="legend-color" style="background-color: #dbeafe;"></div>
+                    </div>
+                    <span class="legend-label">Worst</span>
+                </div>
+            </div>
+            
+            <!-- Intervention Information -->
+            <div class="info-container">
+                <h3 id="intervention-title"></h3>
+                <div class="info-row">
+                    <span class="info-label">Average Rank:</span>
+                    <span id="avg-rank" class="info-value"></span>
+                </div>
+            </div>
+            
+            <!-- Rationale -->
+            <div class="rationale-container">
+                <h3>Rationale by Country</h3>
+                <p id="rationale-text"></p>
+            </div>
+            
+            <!-- All Interventions Comparison -->
+            <div class="comparison-container">
+                <h2>All Interventions Comparison</h2>
+                <div class="table-container">
+                    <table id="comparison-table">
+                        <thead>
+                            <!-- Headers will be added dynamically -->
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="footer">
+                Rankings: 1 = highest priority, 5 = lowest priority
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
