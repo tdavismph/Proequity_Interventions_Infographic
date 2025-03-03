@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro-Equity Health Intervention Rankings</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include XLSX library for Excel file parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pro-Equity Health Intervention Rankings by Country</h1>
+        
+        <!-- Loading indicator -->
+        <div id="loading">Loading data... This may take a moment.</div>
+        
+        <!-- Error message -->
+        <div id="error" class="error"></div>
+        
+        <!-- Main content container, hidden until data loads -->
+        <div id="content" class="hidden">
+            <!-- Intervention Selection -->
+            <div class="selection-container">
+                <label for="intervention-select" class="label">Select an Intervention:</label>
+                <select id="intervention-select" class="select">
+                    <!-- Options will be added dynamically -->
+                </select>
+            </div>
+            
+            <!-- Ranking Visualization -->
+            <div class="visualization-container">
+                <h2>Rankings by Country (Ordered by Priority)</h2>
+                <div id="rankings-container">
+                    <!-- Rankings will be added dynamically -->
+                </div>
+                <div class="legend">
+                    <span class="legend-label">Best</span>
+                    <div class="legend-colors">
+                        <div class="legend-color" style="background-color: #1e3a8a;"></div>
+                        <div class="legend-color" style="background-color: #3b82f6;"></div>
+                        <div class="legend-color" style="background-color: #93c5fd;"></div>
+                        <div class="legend-color" style="background-color: #bfdbfe;"></div>
+                        <div class="legend-color" style="background-color: #dbeafe;"></div>
+                    </div>
+                    <span class="legend-label">Worst</span>
+                </div>
+            </div>
+            
+            <!-- Intervention Information -->
+            <div class="info-container">
+                <h3 id="intervention-title"></h3>
+                <div class="info-row">
+                    <span class="info-label">Average Rank:</span>
+                    <span id="avg-rank" class="info-value"></span>
+                </div>
+            </div>
+            
+            <!-- Rationale -->
+            <div class="rationale-container">
+                <h3>Rationale by Country</h3>
+                <p id="rationale-text"></p>
+            </div>
+            
+            <!-- All Interventions Comparison -->
+            <div class="comparison-container">
+                <h2>All Interventions Comparison</h2>
+                <div class="table-container">
+                    <table id="comparison-table">
+                        <thead>
+                            <!-- Headers will be added dynamically -->
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="footer">
+                Rankings: 1 = highest priority, 5 = lowest priority
+            </div>
+        </div>
+    </div>
+
+    <!-- Add sample data for testing -->
+    <script>
+    // This is sample data that will be used if the Excel file fails to load
+    const SAMPLE_DATA = [
+      {
+        "Pro-Equtiy Intervention": "User Incentives (Cash Transfers, Transport Vouchers, Drug Vouchers)",
+        "Bangladesh": 5,
+        "Malawi": 4,
+        "Mali": 2,
+        "Pakistan": 1,
+        "Cambodia": 3,
+        "Ethiopia": 4,
+        "Mozambique": 3,
+        "Niger": 2,
+        "Sierra Leone": 3,
+        "Tajikistan": 5,
+        "Avg. Rank": 3.2,
+        "Rationale": "Pakistan: Severe financial hardship (30% of population) requires direct financial support. Malawi: High financial hardship and foregone care. Mali: Out-of-pocket costs are a major barrier. Bangladesh: Financial barriers are not the biggest issue, but small incentives help ultra-poor families. Cambodia: High OOP spending but not the primary barrier—targeted financial incentives can improve access for the poorest."
+      },
+      {
+        "Pro-Equtiy Intervention": "Community Health Workers (CHWs) & Community Groups",
+        "Bangladesh": 1,
+        "Malawi": 3,
+        "Mali": 3,
+        "Pakistan": 2,
+        "Cambodia": 2,
+        "Ethiopia": 2,
+        "Mozambique": 2,
+        "Niger": 3,
+        "Sierra Leone": 2,
+        "Tajikistan": 2,
+        "Avg. Rank": 2.2,
+        "Rationale": "Bangladesh: Demand-side barriers and vaccine hesitancy require CHW engagement. Pakistan: Large crude-effective coverage gaps suggest poor service delivery—CHWs bridge the gap. Malawi: CHWs crucial for demand generation in remote areas. Mali: CHWs essential for conflict-affected, low-access regions."
+      },
+      {
+        "Pro-Equtiy Intervention": "Community-Based Monitoring (CBM) & Social Accountability",
+        "Bangladesh": 3,
+        "Malawi": 5,
+        "Mali": 4,
+        "Pakistan": 3,
+        "Cambodia": 5,
+        "Ethiopia": 5,
+        "Mozambique": 4,
+        "Niger": 5,
+        "Sierra Leone": 4,
+        "Tajikistan": 4,
+        "Avg. Rank": 4.2,
+        "Rationale": "Bangladesh: Service quality gaps and dropout rates require CBM. Pakistan: Service quality and accountability are major concerns. Malawi: Ensures proper service delivery in low-readiness areas. Mali: Needed to track supply chain and absenteeism."
+      },
+      {
+        "Pro-Equtiy Intervention": "Microplanning & GIS Mapping",
+        "Bangladesh": 2,
+        "Malawi": 1,
+        "Mali": 1,
+        "Pakistan": 4,
+        "Cambodia": 4,
+        "Ethiopia": 1,
+        "Mozambique": 1,
+        "Niger": 1,
+        "Sierra Leone": 1,
+        "Tajikistan": 1,
+        "Avg. Rank": 1.7,
+        "Rationale": "Bangladesh: Needed for within-region disparities, especially in urban slums. Malawi: Essential for targeting hardest-to-reach zero-dose children. Mali: High geographic disparities—mobile outreach crucial. Pakistan: Data gaps limit GIS effectiveness, but microplanning is still useful."
+      },
+      {
+        "Pro-Equtiy Intervention": "Integrated Health Campaigns",
+        "Bangladesh": 4,
+        "Malawi": 2,
+        "Mali": 5,
+        "Pakistan": 5,
+        "Cambodia": 1,
+        "Ethiopia": 3,
+        "Mozambique": 5,
+        "Niger": 4,
+        "Sierra Leone": 5,
+        "Tajikistan": 3,
+        "Avg. Rank": 3.7,
+        "Rationale": "Bangladesh: Bundling immunization with nutrition and maternal services boosts uptake. Pakistan: Declining child health services require bundled interventions. Malawi: Needed due to worsening child health indicators. Mali: Important in conflict zones to ensure multi-service access."
+      }
+    ];
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
