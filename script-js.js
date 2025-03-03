@@ -206,52 +206,67 @@ function initializeInterventionSelect() {
     interventionSelectEl.addEventListener('change', handleInterventionChange);
 }
 
+// Process the data
+function processData(rawData) {
+    data = rawData;
+    
+    // Extract interventions
+    interventions = data.map(row => row['Pro-Equtiy Intervention']);
+    
+    // Get country names (all columns except first, last two)
+    countries = Object.keys(data[0])
+        .filter(key => key !== 'Pro-Equtiy Intervention' && key !== 'Avg. Rank' && key !== 'Rationale');
+    
+    // Set initial selected intervention
+    selectedIntervention = interventions[0];
+    
+    // Initialize UI
+    initializeInterventionSelect();
+    
+    // Find the selected intervention data
+    const selectedData = data.find(row => row['Pro-Equtiy Intervention'] === selectedIntervention);
+    
+    // Render UI components
+    renderRankings(selectedData);
+    renderInterventionInfo(selectedData);
+    renderComparisonTable();
+    
+    // Hide loading, show content
+    loadingEl.style.display = 'none';
+    contentEl.classList.remove('hidden');
+}
+
 // Load and initialize data
 async function initializeData() {
     try {
-        // Fetch Excel file
+        // First, try to load the Excel file
         const response = await fetch('Final_Intervention_Rankings_by_Country.xlsx');
-        const arrayBuffer = await response.arrayBuffer();
         
-        // Parse Excel data
-        const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
-        
-        // Get first sheet
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        
-        // Convert to JSON
-        data = XLSX.utils.sheet_to_json(sheet);
-        
-        // Extract interventions
-        interventions = data.map(row => row['Pro-Equtiy Intervention']);
-        
-        // Get country names (all columns except first, last two)
-        countries = Object.keys(data[0])
-            .filter(key => key !== 'Pro-Equtiy Intervention' && key !== 'Avg. Rank' && key !== 'Rationale');
-        
-        // Set initial selected intervention
-        selectedIntervention = interventions[0];
-        
-        // Initialize UI
-        initializeInterventionSelect();
-        
-        // Find the selected intervention data
-        const selectedData = data.find(row => row['Pro-Equtiy Intervention'] === selectedIntervention);
-        
-        // Render UI components
-        renderRankings(selectedData);
-        renderInterventionInfo(selectedData);
-        renderComparisonTable();
-        
-        // Hide loading, show content
-        loadingEl.style.display = 'none';
-        contentEl.classList.remove('hidden');
+        if (response.ok) {
+            const arrayBuffer = await response.arrayBuffer();
+            
+            // Parse Excel data
+            const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+            
+            // Get first sheet
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            
+            // Convert to JSON
+            const jsonData = XLSX.utils.sheet_to_json(sheet);
+            
+            processData(jsonData);
+        } else {
+            // If Excel file fails to load, use sample data
+            console.log('Excel file not found, using sample data instead');
+            processData(SAMPLE_DATA);
+        }
     } catch (error) {
         console.error('Error loading data:', error);
-        loadingEl.style.display = 'none';
-        errorEl.style.display = 'block';
-        errorEl.textContent = 'Failed to load data. Please ensure the Excel file is in the correct location.';
+        
+        // Fallback to sample data
+        console.log('Using sample data due to error');
+        processData(SAMPLE_DATA);
     }
 }
 

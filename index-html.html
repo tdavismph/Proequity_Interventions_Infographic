@@ -13,7 +13,7 @@
         <h1>Pro-Equity Health Intervention Rankings by Country</h1>
         
         <!-- Loading indicator -->
-        <div id="loading">Loading data...</div>
+        <div id="loading">Loading data... This may take a moment.</div>
         
         <!-- Error message -->
         <div id="error" class="error"></div>
@@ -83,6 +83,88 @@
         </div>
     </div>
 
+    <!-- Add sample data for testing -->
+    <script>
+    // This is sample data that will be used if the Excel file fails to load
+    const SAMPLE_DATA = [
+      {
+        "Pro-Equtiy Intervention": "User Incentives (Cash Transfers, Transport Vouchers, Drug Vouchers)",
+        "Bangladesh": 5,
+        "Malawi": 4,
+        "Mali": 2,
+        "Pakistan": 1,
+        "Cambodia": 3,
+        "Ethiopia": 4,
+        "Mozambique": 3,
+        "Niger": 2,
+        "Sierra Leone": 3,
+        "Tajikistan": 5,
+        "Avg. Rank": 3.2,
+        "Rationale": "Pakistan: Severe financial hardship (30% of population) requires direct financial support. Malawi: High financial hardship and foregone care. Mali: Out-of-pocket costs are a major barrier. Bangladesh: Financial barriers are not the biggest issue, but small incentives help ultra-poor families. Cambodia: High OOP spending but not the primary barrier—targeted financial incentives can improve access for the poorest."
+      },
+      {
+        "Pro-Equtiy Intervention": "Community Health Workers (CHWs) & Community Groups",
+        "Bangladesh": 1,
+        "Malawi": 3,
+        "Mali": 3,
+        "Pakistan": 2,
+        "Cambodia": 2,
+        "Ethiopia": 2,
+        "Mozambique": 2,
+        "Niger": 3,
+        "Sierra Leone": 2,
+        "Tajikistan": 2,
+        "Avg. Rank": 2.2,
+        "Rationale": "Bangladesh: Demand-side barriers and vaccine hesitancy require CHW engagement. Pakistan: Large crude-effective coverage gaps suggest poor service delivery—CHWs bridge the gap. Malawi: CHWs crucial for demand generation in remote areas. Mali: CHWs essential for conflict-affected, low-access regions."
+      },
+      {
+        "Pro-Equtiy Intervention": "Community-Based Monitoring (CBM) & Social Accountability",
+        "Bangladesh": 3,
+        "Malawi": 5,
+        "Mali": 4,
+        "Pakistan": 3,
+        "Cambodia": 5,
+        "Ethiopia": 5,
+        "Mozambique": 4,
+        "Niger": 5,
+        "Sierra Leone": 4,
+        "Tajikistan": 4,
+        "Avg. Rank": 4.2,
+        "Rationale": "Bangladesh: Service quality gaps and dropout rates require CBM. Pakistan: Service quality and accountability are major concerns. Malawi: Ensures proper service delivery in low-readiness areas. Mali: Needed to track supply chain and absenteeism."
+      },
+      {
+        "Pro-Equtiy Intervention": "Microplanning & GIS Mapping",
+        "Bangladesh": 2,
+        "Malawi": 1,
+        "Mali": 1,
+        "Pakistan": 4,
+        "Cambodia": 4,
+        "Ethiopia": 1,
+        "Mozambique": 1,
+        "Niger": 1,
+        "Sierra Leone": 1,
+        "Tajikistan": 1,
+        "Avg. Rank": 1.7,
+        "Rationale": "Bangladesh: Needed for within-region disparities, especially in urban slums. Malawi: Essential for targeting hardest-to-reach zero-dose children. Mali: High geographic disparities—mobile outreach crucial. Pakistan: Data gaps limit GIS effectiveness, but microplanning is still useful."
+      },
+      {
+        "Pro-Equtiy Intervention": "Integrated Health Campaigns",
+        "Bangladesh": 4,
+        "Malawi": 2,
+        "Mali": 5,
+        "Pakistan": 5,
+        "Cambodia": 1,
+        "Ethiopia": 3,
+        "Mozambique": 5,
+        "Niger": 4,
+        "Sierra Leone": 5,
+        "Tajikistan": 3,
+        "Avg. Rank": 3.7,
+        "Rationale": "Bangladesh: Bundling immunization with nutrition and maternal services boosts uptake. Pakistan: Declining child health services require bundled interventions. Malawi: Needed due to worsening child health indicators. Mali: Important in conflict zones to ensure multi-service access."
+      }
+    ];
+    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -4,12 +4,13 @@ An interactive visualization of pro-equity health intervention rankings by count
 
 ## About This Project
 
-This visualization displays rankings of different pro-equity health interventions across several countries. The data is sourced from an Excel file named `Final_Intervention_Rankings_by_Country.xlsx`.
+This visualization displays rankings of different pro-equity health interventions across several countries. The data shows how different interventions are prioritized in various countries on a scale of 1-5 (1 being highest priority, 5 being lowest).
 
 ## Features
 
 - Interactive selection of interventions
 - Country rankings displayed by priority level
+- Color-coded system showing priorities from best (dark blue) to worst (light blue)
 - Detailed rationale for each intervention by country
 - Comprehensive comparison table of all interventions
 
@@ -20,34 +21,28 @@ This visualization displays rankings of different pro-equity health intervention
 3. Read the detailed rationale for each intervention
 4. Compare all interventions in the table at the bottom
 
-## Setup Instructions
+## Data Source
 
-### Prerequisites
-- A GitHub account
-- Your Excel data file (`Final_Intervention_Rankings_by_Country.xlsx`)
+This visualization uses either:
+1. The Excel file named `Final_Intervention_Rankings_by_Country.xlsx` if available
+2. A built-in sample dataset if the Excel file is not found
 
-### Steps to Deploy on GitHub Pages
+## GitHub Pages Deployment
 
-1. Create a new repository on GitHub
-2. Upload all the files in this package to your repository:
-   - `index.html`
-   - `styles.css`
-   - `script.js`
-   - `README.md`
-   - `Final_Intervention_Rankings_by_Country.xlsx` (your data file)
-3. Go to the repository settings
-4. Scroll down to the GitHub Pages section
-5. Select the main branch as the source
-6. Save the settings
-7. Your visualization will be published at `https://[your-username].github.io/[repository-name]`
+This visualization is designed to be easily deployed on GitHub Pages. See the included deployment instructions for step-by-step guidance.
 
 ## File Structure
 
 - `index.html` - The main HTML structure
 - `styles.css` - All styling and layout rules
 - `script.js` - JavaScript code that handles data loading and visualization
-- `Final_Intervention_Rankings_by_Country.xlsx` - Data source
+- `sample_data.json` - Backup data source if the Excel file is not available
+- `Final_Intervention_Rankings_by_Country.xlsx` - Primary data source (optional)
 
-## Credits
+## Browser Compatibility
 
-Created with vanilla JavaScript, HTML, and CSS.
+This visualization works in all modern browsers including:
+- Chrome
+- Firefox
+- Safari
+- Edge
